@@ -72,10 +72,13 @@ public class patrolling : MonoBehaviour
                     locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = true;
                 }
 
-               
-            }
 
-            if (sDestination == "Player")
+            }
+        }
+            if (agent.remainingDistance < 5f && !agent.pathPending) //if on destination ----- flower is eaten or player out of sight
+            {
+
+                if (sDestination == "Player")
             {
             //    agent.isStopped = true;
                 //attack player or something
