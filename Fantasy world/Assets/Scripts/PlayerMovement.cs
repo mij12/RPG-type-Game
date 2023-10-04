@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool pressedTab = false;
+    public bool statsActive = false;
+    public GameObject stats;
+
 
     public static bool isHiding = false;
     public static int attackDMG = 1;
@@ -31,14 +35,38 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+       Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
+        {
+            pressedTab = true;
+            if (statsActive == false)
+            {
+                stats.SetActive(true);
+                statsActive = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else if (statsActive)
+            {
+                stats.SetActive(false);
+                statsActive = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+
+
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            pressedTab = false;
+        }
+
+    
+    isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
