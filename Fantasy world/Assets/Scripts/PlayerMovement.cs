@@ -11,8 +11,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     public static bool isHiding = false;
-    public static int attackDMG = 1;
-    public static int HP = 10;
+    public static float attackDMG = 1;
+    public static float DMGOrigin = 1;
+    public static float DMGSaved = 1;
+
+
+
+    public static float HP = 10;
+    public static float HPOrigin;
+    public static float HPSaved;
+
     public static float XP = 0f;
     public Transform patrolRoute;
   //  public List<Transform> locations;
@@ -21,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     public Transform cam;
 
     public float speed = 7f;
+    public float speedOrigin;
+    public float speedSaved;
+   
 
     public float smoothTurnTime = 0.1f;
     float smoothTurnVelocity;
@@ -36,11 +47,38 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
        Cursor.lockState = CursorLockMode.Locked;
+        speedOrigin = speed;
+        speedSaved = int.Parse(stats.GetComponent<Stats>().speed.text);
+
+        HPOrigin = HP;
+        HPSaved = int.Parse(stats.GetComponent<Stats>().hp.text);
+
+        DMGOrigin = attackDMG;
+        DMGSaved = int.Parse(stats.GetComponent<Stats>().dmg.text);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (speedSaved != int.Parse(stats.GetComponent<Stats>().speed.text))
+        {
+            speed = speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text);
+            speedSaved = speed;
+            
+        }
+        if (HPSaved != int.Parse(stats.GetComponent<Stats>().hp.text))
+        {
+            HP = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
+            HPSaved = HP;
+
+        }
+        if (DMGSaved != int.Parse(stats.GetComponent<Stats>().dmg.text))
+        {
+            attackDMG = DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text);
+            DMGSaved = attackDMG;
+
+        }
 
         if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
         {

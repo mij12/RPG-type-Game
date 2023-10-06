@@ -11,9 +11,9 @@ public class patrolling : MonoBehaviour
     public bool slHasHit = false;
     
     public static bool resetLocations = false;
-    public int HP = 5;
+    public float HP = 5;
     public float timer = 0f;
-    public int attackDMG = 3;
+    public float attackDMG = 3;
     
     public Transform player;
     public Transform patrolRoute;

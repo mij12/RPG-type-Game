@@ -36,6 +36,10 @@ public class UI3 : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+    public void ToInputName()
+    {
+        SceneManager.LoadScene("InputUsername");
+    }
     public void Quit()
     {
         Application.Quit();
