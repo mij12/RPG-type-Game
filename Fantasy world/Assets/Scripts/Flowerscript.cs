@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Flowerscript : MonoBehaviour
 {
@@ -8,12 +10,17 @@ public class Flowerscript : MonoBehaviour
     public GameObject flower;
     public bool isBeingEaten = false;
     public bool isEaten = false;
+    public bool isInRange = false;
     public float timer = 0f;
-    
+    public GameObject UIElement;
+    public GameObject stats;
+    public GameObject inventory;
+
     // Start is called before the first frame update
     void Start()
     {
-      //  flower = GameObject.Find("Flower");
+        //  flower = GameObject.Find("Flower");
+        
     }
 
     // Update is called once per frame
@@ -36,5 +43,40 @@ public class Flowerscript : MonoBehaviour
             }
             timer += Time.deltaTime;
         }
+
+        if (isInRange)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                stats.GetComponent<Stats>().xp.text = (int.Parse(stats.GetComponent<Stats>().xp.text) + 10).ToString();
+                Destroy(this.gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                inventory.GetComponent<Inventoryscript>().nFlowers += 1;
+                Destroy(this.gameObject);
+            }
+        }
+
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            UIElement.SetActive(true);
+            isInRange = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            UIElement.SetActive(false);
+            isInRange = false; 
+        }
+    }
+
+
 }
+
