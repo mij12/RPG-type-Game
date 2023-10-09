@@ -20,12 +20,20 @@ public class Flowerscript : MonoBehaviour
     void Start()
     {
         //  flower = GameObject.Find("Flower");
-        
+       stats = GameObject.Find("Stats");
+       inventory = GameObject.Find("Inventory");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (stats == null)
+        {
+            if (GameObject.Find("Stats") != null)
+            {
+                stats = GameObject.Find("Stats");
+            }
+        }
         if (isBeingEaten)
         {
             //play eating sound
