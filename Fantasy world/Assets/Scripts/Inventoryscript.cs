@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class Inventoryscript : MonoBehaviour
 {
+    public GameObject gPan;
+    public GameObject gFlower;
+    public GameObject gCore;
 
+    public bool panEquipped = false;
+    public bool flowerEquipped = false;
+    public bool coreEquipped = false;
+    
     public int nFlowers = 0;
     public int flowerO;
     public int nPan = 0;
@@ -47,9 +54,59 @@ public class Inventoryscript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             //draw pan/sword for battle
+            if (panEquipped == false)
+            {
+                if (nPan > 0)
+                {
+                    panEquipped = true;
+                    gPan.SetActive(true);
+                }
+            }
+            else
+            {
+                panEquipped = false;
+                gPan.SetActive(false);
+            }
+
         }
-    
-        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //draw pan/sword for battle
+            if (flowerEquipped == false)
+            {
+                if (nFlowers > 0)
+                { 
+                    flowerEquipped = true;
+                    gFlower.SetActive(true); 
+                }
+            }
+            else
+            {
+                flowerEquipped = false;
+                gFlower.SetActive(false);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //draw pan/sword for battle
+            if (coreEquipped == false)
+            {
+                if (nCores > 0)
+                {
+                    coreEquipped = true;
+                    gCore.SetActive(true);
+                }
+            }
+            else
+            {
+                coreEquipped = false;
+                gCore.SetActive(false);
+            }
+
+        }
+
+
     }
 
 }

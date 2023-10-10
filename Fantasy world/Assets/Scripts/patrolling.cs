@@ -167,6 +167,25 @@ public class patrolling : MonoBehaviour
 
 
         }
+        if (other.name == "Pan2")
+        {
+            if (Animationswing.animIsPlaying == true && sHasHit == false)
+            {
+                sHasHit = true;
+
+
+                //if slime is eating stop the eating
+                if (locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten == true)
+                {
+                    locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = false;
+                }
+                HP -= PlayerMovement.attackDMG;
+                //  agent.destination = player.position;
+                sDestination = "Player";
+            }
+
+
+        }
         if (other.name == "Trigger")
         {
             if (Slimeanimations.anim.isPlaying == true && slHasHit == false)

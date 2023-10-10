@@ -35,6 +35,12 @@ public class Stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (int.Parse(xp.text) == 10 * int.Parse(level.text))
+        {
+            xp.text = (int.Parse(xp.text) - 10 * int.Parse(level.text)).ToString();
+            level.text = (int.Parse(level.text) + 1).ToString();
+            
+        }
         uName.text = $"Name: \"{GettingName.uName}\"";
         if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
         {

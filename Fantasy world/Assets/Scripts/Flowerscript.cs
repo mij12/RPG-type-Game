@@ -11,6 +11,7 @@ public class Flowerscript : MonoBehaviour
     public bool isBeingEaten = false;
     public bool isEaten = false;
     public bool isInRange = false;
+    public bool isPan = false;
     public float timer = 0f;
     public GameObject UIElement;
     public GameObject stats;
@@ -56,15 +57,36 @@ public class Flowerscript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                stats.GetComponent<Stats>().xp.text = (int.Parse(stats.GetComponent<Stats>().xp.text) + 10).ToString();
+                stats.GetComponent<Stats>().xp.text = (int.Parse(stats.GetComponent<Stats>().xp.text) + 5).ToString();
                 Destroy(this.gameObject);
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                inventory.GetComponent<Inventoryscript>().nFlowers += 1;
+                if (isPan)
+                {
+                    inventory.GetComponent<Inventoryscript>().nPan += 1;
+                    Destroy(flower);
+                }
+                else
+                {
+                    inventory.GetComponent<Inventoryscript>().nFlowers += 1;
+                }
+                
                 Destroy(this.gameObject);
             }
         }
+        if (inventory.GetComponent<Inventoryscript>().flowerEquipped == true)
+        {
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            {
+                inventory.GetComponent<Inventoryscript>().flowerEquipped = false;
+                inventory.GetComponent<Inventoryscript>().gFlower.SetActive(false);
+                inventory.GetComponent<Inventoryscript>().nFlowers -= 1;
+                stats.GetComponent<Stats>().xp.text = (int.Parse(stats.GetComponent<Stats>().xp.text) + 5).ToString();
+            }
+
+        }
+        
 
     }
 
