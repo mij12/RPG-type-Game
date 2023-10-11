@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     bool isGrounded;
 
+
+   
+
     void Start()
     {
        Cursor.lockState = CursorLockMode.Locked;
@@ -56,11 +59,15 @@ public class PlayerMovement : MonoBehaviour
         DMGOrigin = attackDMG;
         DMGSaved = int.Parse(stats.GetComponent<Stats>().dmg.text);
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        
+
         if (speedSaved != int.Parse(stats.GetComponent<Stats>().speed.text))
         {
             speed = speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text);

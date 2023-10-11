@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Animationswing : MonoBehaviour
 {
-    public static bool animIsPlaying = false;
+    public bool animIsPlaying = false;
 
     private Animation anim;
     public GameObject sword;

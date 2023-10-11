@@ -18,12 +18,17 @@ public class patrolling : MonoBehaviour
     public Transform player;
     public Transform patrolRoute;
     public GameObject slime;
+    public GameObject sword;
     public List<Transform> locations;
 
     private int locationIndex = 0;
     public static NavMeshAgent agent;
-    private string sDestination = "Flower";
-   // private Animation anim;
+    public string sDestination = "Flower";
+    // private Animation anim;
+
+    
+    
+
 
 
 
@@ -35,10 +40,14 @@ public class patrolling : MonoBehaviour
         //  anim = slime.GetComponent<Animation>();
         InitializePatrolRoute();
         MoveToNextPatrolLocation();
+        
+
     }
 
     void Update()
     {
+
+       
 
         if (resetLocations == true || locations[0] == null)
         {
@@ -110,10 +119,10 @@ public class patrolling : MonoBehaviour
         if (HP <= 0)
         {
             UI2.dSlimes += 1;
-            Destroy(slime);
+            Destroy(this.gameObject);
         }
        
-        if (Animationswing.animIsPlaying == false && sHasHit == true)
+        if (sword.GetComponent<Animationswing>().animIsPlaying == false && sHasHit == true)
         {
             sHasHit = false;
         }
@@ -148,28 +157,29 @@ public class patrolling : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Stick (1)")
-        {
-            if (Animationswing.animIsPlaying == true && sHasHit == false)
-            {
-                sHasHit = true;
+        //if (other.name == "Stick (1)")
+        //{
+        //    if (sword.GetComponent<Animationswing>().animIsPlaying == true && sHasHit == false)
+        //    {
+        //        sHasHit = true;
 
 
-                //if slime is eating stop the eating
-                if (locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten == true)
-                {
-                    locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = false;
-                }
-                HP -= PlayerMovement.attackDMG;
-                //  agent.destination = player.position;
-                sDestination = "Player";
-            }
+        //        //if slime is eating stop the eating
+        //        if (locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten == true)
+        //        {
+        //            locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = false;
+        //        }
+        //        HP -= PlayerMovement.attackDMG;
+        //        //  agent.destination = player.position;
+        //        sDestination = "Player";
+        //    }
 
 
-        }
+        //}
         if (other.name == "Pan2")
         {
-            if (Animationswing.animIsPlaying == true && sHasHit == false)
+            
+            if (sword.GetComponent<Animationswing>().animIsPlaying == true && sHasHit == false)
             {
                 sHasHit = true;
 
@@ -188,6 +198,7 @@ public class patrolling : MonoBehaviour
         }
         if (other.name == "Trigger")
         {
+            Debug.Log("hit trigger");
             if (Slimeanimations.anim.isPlaying == true && slHasHit == false)
             {
                 slHasHit = true;
