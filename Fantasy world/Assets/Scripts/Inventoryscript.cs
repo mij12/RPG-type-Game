@@ -9,17 +9,23 @@ public class Inventoryscript : MonoBehaviour
     public GameObject gPan;
     public GameObject gFlower;
     public GameObject gCore;
+    public GameObject gredCryst;
 
     public bool panEquipped = false;
+    public bool redCrystEquipped = false;
     public bool flowerEquipped = false;
     public bool coreEquipped = false;
+
     
+    public int redCryst = 0;
+    public int redCrystO;
     public int nFlowers = 0;
     public int flowerO;
     public int nPan = 0;
     public int panO;
     public int nCores = 0;
     public int coreO;
+    public TMP_Text redCrystT;
     public TMP_Text pan;
     public TMP_Text flower;
     public TMP_Text core;
@@ -27,6 +33,7 @@ public class Inventoryscript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        redCrystO = redCryst;
         flowerO = nFlowers;
         panO = nPan;
         coreO = nCores;
@@ -35,6 +42,11 @@ public class Inventoryscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (redCryst != redCrystO)
+        {
+            redCrystO = redCryst;
+            redCrystT.text = $"{redCryst}";
+        }
         if (nPan != panO)
         {
             panO = nPan;
@@ -102,6 +114,24 @@ public class Inventoryscript : MonoBehaviour
             {
                 coreEquipped = false;
                 gCore.SetActive(false);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            //draw pan/sword for battle
+            if (redCrystEquipped == false)
+            {
+                if (redCryst > 0)
+                {
+                    redCrystEquipped = true;
+                    gredCryst.SetActive(true);
+                }
+            }
+            else
+            {
+                redCrystEquipped = false;
+                gredCryst.SetActive(false);
             }
 
         }
