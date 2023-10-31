@@ -28,8 +28,8 @@ public class Stats : MonoBehaviour
     {
         level.text = "1";
         skillPoints.text = "10";
-        hp.text = "10";
-        dmg.text = "1";
+        hp.text = "0";
+        dmg.text = "0";
     }
 
     // Update is called once per frame
@@ -39,6 +39,7 @@ public class Stats : MonoBehaviour
         {
             xp.text = (int.Parse(xp.text) - 10 * int.Parse(level.text)).ToString();
             level.text = (int.Parse(level.text) + 1).ToString();
+            skillPoints.text = (int.Parse(skillPoints.text) + 10).ToString();
             
         }
         uName.text = $"Name: \"{GettingName.uName}\"";

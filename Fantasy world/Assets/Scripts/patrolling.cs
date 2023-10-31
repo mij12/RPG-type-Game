@@ -11,7 +11,7 @@ public class patrolling : MonoBehaviour
     public bool slHasHit = false;
     
     public static bool resetLocations = false;
-    public float HP = 5;
+    public float HP = 10;
     public float timer = 0f;
     public float attackDMG = 3;
     
@@ -19,6 +19,7 @@ public class patrolling : MonoBehaviour
     public Transform patrolRoute;
     public GameObject slime;
     public GameObject sword;
+    public GameObject RedcrystalVariant;
     public List<Transform> locations;
 
     private int locationIndex = 0;
@@ -26,7 +27,7 @@ public class patrolling : MonoBehaviour
     public string sDestination = "Flower";
     // private Animation anim;
 
-    
+    public Quaternion crystalRot;
     
 
 
@@ -40,8 +41,8 @@ public class patrolling : MonoBehaviour
         //  anim = slime.GetComponent<Animation>();
         InitializePatrolRoute();
         MoveToNextPatrolLocation();
-        
 
+        crystalRot = RedcrystalVariant.transform.rotation;
     }
 
     void Update()
@@ -60,16 +61,16 @@ public class patrolling : MonoBehaviour
         }
         if (locations.Count == 0)
         {
-            if (PlayerMovement.XP >= 4)
-            {
+            //if (PlayerMovement.XP >= 4)
+            //{
 
 
-                SceneManager.LoadScene("WinScreen");
-            }
-            else
-            {
-                SceneManager.LoadScene("LoseScreen1");
-            }
+            //    SceneManager.LoadScene("WinScreen");
+            //}
+            //else
+            //{
+            //    SceneManager.LoadScene("LoseScreen1");
+            //}
         }
         if (agent.remainingDistance < 3f && !agent.pathPending) //if on destination ----- flower is eaten or player out of sight
         {
@@ -119,6 +120,7 @@ public class patrolling : MonoBehaviour
         if (HP <= 0)
         {
             UI2.dSlimes += 1;
+            Instantiate(RedcrystalVariant, transform.position, crystalRot);
             Destroy(this.gameObject);
         }
        
@@ -150,35 +152,35 @@ public class patrolling : MonoBehaviour
         sDestination = "Flower";
         agent.destination = locations[locationIndex].position;
         locationIndex = 0;
-        
+
     }
 
 
 
     void OnTriggerEnter(Collider other)
     {
-        //if (other.name == "Stick (1)")
-        //{
-        //    if (sword.GetComponent<Animationswing>().animIsPlaying == true && sHasHit == false)
-        //    {
-        //        sHasHit = true;
+        //    //if (other.name == "Stick (1)")
+        //    //{
+        //    //    if (sword.GetComponent<Animationswing>().animIsPlaying == true && sHasHit == false)
+        //    //    {
+        //    //        sHasHit = true;
 
 
-        //        //if slime is eating stop the eating
-        //        if (locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten == true)
-        //        {
-        //            locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = false;
-        //        }
-        //        HP -= PlayerMovement.attackDMG;
-        //        //  agent.destination = player.position;
-        //        sDestination = "Player";
-        //    }
+        //    //        //if slime is eating stop the eating
+        //    //        if (locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten == true)
+        //    //        {
+        //    //            locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = false;
+        //    //        }
+        //    //        HP -= PlayerMovement.attackDMG;
+        //    //        //  agent.destination = player.position;
+        //    //        sDestination = "Player";
+        //    //    }
 
 
-        //}
+        //    //}
         if (other.name == "Pan2")
         {
-            
+
             if (sword.GetComponent<Animationswing>().animIsPlaying == true && sHasHit == false)
             {
                 sHasHit = true;
@@ -194,26 +196,27 @@ public class patrolling : MonoBehaviour
                 sDestination = "Player";
             }
 
-
         }
-        if (other.name == "Trigger")
-        {
-            Debug.Log("hit trigger");
-            if (Slimeanimations.anim.isPlaying == true && slHasHit == false)
-            {
-                slHasHit = true;
+
+            
+    //    if (other.name == "Trigger")
+    //    {
+    //        Debug.Log("hit trigger");
+    //        if (Slimeanimations.anim.isPlaying == true && slHasHit == false)
+    //        {
+    //            slHasHit = true;
 
 
 
-                PlayerMovement.HP -= attackDMG;
-                Debug.Log(PlayerMovement.HP);
+    //            PlayerMovement.HP -= attackDMG;
+    //            Debug.Log(PlayerMovement.HP);
 
 
-            }
+    //        }
 
 
-        }
-    }
+    //    }
+     }
 
 
     //void OnTriggerExit(Collider other) // if player isn't visible

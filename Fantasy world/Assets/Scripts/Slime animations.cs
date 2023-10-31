@@ -6,6 +6,7 @@ public class Slimeanimations : MonoBehaviour
 {
     public bool sHasHit = false;
     public bool slHasHit = false;
+    public bool sAnimActive = false;
     public static bool attack = false;
     public static Animation anim;
     public GameObject slimeMesh;
@@ -28,7 +29,11 @@ public class Slimeanimations : MonoBehaviour
             if (anim.isPlaying == false)
             {
                 anim.Play("Attack");
-             
+              sAnimActive = true;
+            }
+            else
+            {
+                sAnimActive=false;
             }
            
             
@@ -74,7 +79,7 @@ public class Slimeanimations : MonoBehaviour
         if (other.name == "Trigger")
         {
             Debug.Log("hit trigger");
-            if (anim.isPlaying == true && slHasHit == false)
+            if ((anim.isPlaying == true || sAnimActive == true) && slHasHit == false)
             {
                 slHasHit = true;
 
@@ -82,7 +87,10 @@ public class Slimeanimations : MonoBehaviour
 
                 PlayerMovement.HP -= slime.GetComponent<patrolling>().attackDMG;
                 Debug.Log(PlayerMovement.HP);
-
+                if (PlayerMovement.HP <= 0)
+                {
+                    slime.GetComponent<patrolling>().HP = 10;
+                }
 
             }
 

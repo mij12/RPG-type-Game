@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.LookRotation(transform.position - cam.transform.position);
-        HP1.text = $"HP: {slime1.GetComponent<patrolling>().HP}";
-        HPplayer.text = $"HP: {PlayerMovement.HP}";
+        HP1.text = $"HP: {Mathf.Round(slime1.GetComponent<patrolling>().HP)}";
+        HPplayer.text = $"HP: {Mathf.Round(PlayerMovement.HP)}";
     }
 }
