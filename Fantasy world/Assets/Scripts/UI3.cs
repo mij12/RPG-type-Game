@@ -28,6 +28,11 @@ public class UI3 : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void ToCutscene1()
+    {
+        SceneManager.LoadScene("Cutscene1");
+    }
+    
     public void ToControls()
     {
         SceneManager.LoadScene("Controls");

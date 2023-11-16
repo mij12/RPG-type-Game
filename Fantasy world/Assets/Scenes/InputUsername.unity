@@ -998,7 +998,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1750799371}
         m_TargetAssemblyTypeName: UI3, Assembly-CSharp
-        m_MethodName: ToFirstScene
+        m_MethodName: ToCutscene1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
