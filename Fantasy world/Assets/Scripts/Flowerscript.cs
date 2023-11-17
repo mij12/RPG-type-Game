@@ -16,6 +16,7 @@ public class Flowerscript : MonoBehaviour
     public GameObject UIElement;
     public GameObject stats;
     public GameObject inventory;
+    public timerscript timerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class Flowerscript : MonoBehaviour
         //  flower = GameObject.Find("Flower");
        stats = GameObject.Find("Stats");
        inventory = GameObject.Find("Inventory");
+        timerScript = GameObject.Find("Timer").GetComponent<timerscript>();
     }
 
     // Update is called once per frame
@@ -40,10 +42,17 @@ public class Flowerscript : MonoBehaviour
             //play eating sound
             if (timer >= 3)
             {
+
                 isBeingEaten = false;
                 isEaten = true;
                 patrolling.resetLocations = true;
+
                 Destroy(this.gameObject);
+
+                
+                //timerScript.timer2On = true;
+                //timerScript.flower = flower;
+                //flower.SetActive(false);
                 timer = 0;
             }
             else

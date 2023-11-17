@@ -13,13 +13,19 @@ public class patrolling : MonoBehaviour
     public static bool resetLocations = false;
     public float HP = 10;
     public float timer = 0f;
+    public float timer1 = 0f;
+    public bool setTimer1 = false;
     public float attackDMG = 3;
     
     public Transform player;
     public Transform patrolRoute;
     public GameObject slime;
     public GameObject sword;
+    public GameObject crystal;
     public GameObject RedcrystalVariant;
+    public GameObject flowerList;
+    public GameObject instantiatedFlowerList;
+   // public GameObject flowerparent;
     public List<Transform> locations;
 
     private int locationIndex = 0;
@@ -28,9 +34,9 @@ public class patrolling : MonoBehaviour
     // private Animation anim;
 
     public Quaternion crystalRot;
-    
+    public timerscript timerScript;
 
-
+    public bool hasNotDied = true;
 
 
     void Start()
@@ -43,24 +49,18 @@ public class patrolling : MonoBehaviour
         MoveToNextPatrolLocation();
 
         crystalRot = RedcrystalVariant.transform.rotation;
+        timerScript = GameObject.Find("Timer").GetComponent<timerscript>();
     }
 
     void Update()
     {
-
-       
-
-        if (resetLocations == true || locations[0] == null)
+        if (locations.Count <= 5)
         {
-            
-            Debug.Log("resetting locations");
-               resetLocations = false;
-            locations.Clear();
-            InitializePatrolRoute();
-            MoveToNextPatrolLocation();
-        }
-        if (locations.Count == 0)
-        {
+            instantiatedFlowerList = Instantiate(flowerList);
+            Destroy(patrolRoute.gameObject);
+            patrolRoute = instantiatedFlowerList.transform;
+            resetLocations = true;
+
             //if (PlayerMovement.XP >= 4)
             //{
 
@@ -72,14 +72,39 @@ public class patrolling : MonoBehaviour
             //    SceneManager.LoadScene("LoseScreen1");
             //}
         }
+        if (setTimer1)
+        {
+            timer1 += 1 * Time.deltaTime;
+            if (timer1 >= 4)
+            {
+                resetLocations = true;
+                timer1 = 0;
+                setTimer1 = false;
+            }
+            
+        }
+
+
+        if (resetLocations == true || locations[0] == null)
+        {
+            
+            Debug.Log("resetting locations");
+               resetLocations = false;
+            locations.Clear();
+            InitializePatrolRoute();
+            MoveToNextPatrolLocation();
+        }
+        
         if (agent.remainingDistance < 3f && !agent.pathPending) //if on destination ----- flower is eaten or player out of sight
         {
             if (sDestination == "Flower")
             {
                 if (locations.Count != 0)
                 {
-
-                    locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = true;
+                        locations[locationIndex].GetComponent<Flowerscript>().isBeingEaten = true;
+                    setTimer1 = true;
+                    
+                   
                 }
 
 
@@ -120,8 +145,16 @@ public class patrolling : MonoBehaviour
         if (HP <= 0)
         {
             UI2.dSlimes += 1;
-            Instantiate(RedcrystalVariant, transform.position, crystalRot);
-            Destroy(this.gameObject);
+            if (hasNotDied)
+            {
+                hasNotDied = false;
+                Instantiate(RedcrystalVariant, transform.position, crystalRot);
+            }
+            crystal.SetActive(false);
+            //Destroy(this.gameObject);
+            slime.SetActive(false);
+            timerScript.timer1On = true;
+            HP = 10;
         }
        
         if (sword.GetComponent<Animationswing>().animIsPlaying == false && sHasHit == true)

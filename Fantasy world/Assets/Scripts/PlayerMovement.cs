@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 7f;
     public float speedOrigin;
     public float speedSaved;
+    public bool sprintOn = false;
    
 
     public float smoothTurnTime = 0.1f;
@@ -71,26 +72,41 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
-
-        if (speedSaved != speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            speed = speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text);
-            speedSaved = speed;
+            if (sprintOn == false)
+             {
             
+                sprintOn = true;
+                speed = speed * 1.5f;
+            }
         }
-        if (HPSaved != HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            HP = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
-            HPSaved = HP;
-
+            sprintOn = false;
+            speed = speed / 1.5f;
         }
-        if (DMGSaved != DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text))
-        {
-            attackDMG = DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text);
-            DMGSaved = attackDMG;
 
+        if (sprintOn == false)
+        {
+            if (speedSaved != speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text))
+            {
+                speed = speedOrigin + speedOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().speed.text);
+                speedSaved = speed;
+
+            }
+            if (HPSaved != HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text))
+            {
+                HP = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
+                HPSaved = HP;
+
+            }
+            if (DMGSaved != DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text))
+            {
+                attackDMG = DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text);
+                DMGSaved = attackDMG;
+
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
