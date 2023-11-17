@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool statsActive = true;
     public GameObject stats;
     public GameObject overlay;
+    public GameObject hidingmessage;
 
 
     public static bool isHiding = false;
@@ -55,6 +56,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+       attackDMG = 1;
+      DMGOrigin = 1;
+      DMGSaved = 1;
+
+        HP = 10;
+         maxHP = 10;
+        XP = 0f;
 
         overlay.SetActive(false);
         speedOrigin = speed;
@@ -221,6 +229,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "Bush")
         {
             isHiding = true;
+            hidingmessage.SetActive(true);
         }
         if (other.tag == "Flower")
         {
@@ -235,6 +244,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "Bush")
         {
             isHiding = false;
+            hidingmessage.SetActive(false);
         }
     }
 
