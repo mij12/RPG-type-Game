@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public bool pressedTab = false;
-    public bool statsActive = false;
+    public bool statsActive = true;
     public GameObject stats;
     public GameObject overlay;
 
@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     public static float HP = 10;
+    public static float maxHP = 10;
     public static float HPOrigin;
     public static float HPSaved;
 
@@ -59,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
         speedOrigin = speed;
         speedSaved = speed;
 
-        HPOrigin = HP;
-        HPSaved = HP;
+        HPOrigin = 10;
+        HPSaved = 10;
 
         DMGOrigin = attackDMG;
         DMGSaved = attackDMG;
@@ -95,12 +96,12 @@ public class PlayerMovement : MonoBehaviour
                 speedSaved = speed;
 
             }
-            if (HPSaved != HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text))
-            {
-                HP = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
-                HPSaved = HP;
-
-            }
+            //if (HPSaved != HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text))
+            //{
+                 
+            //    HPSaved = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
+            //    HP = HPSaved;
+            //}
             if (DMGSaved != DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text))
             {
                 attackDMG = DMGOrigin + DMGOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().dmg.text);
@@ -204,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
             if (transform.position != respawnPoint)
             {
                 transform.position = respawnPoint;
-                HP = HPOrigin + HPOrigin * 0.1f * int.Parse(stats.GetComponent<Stats>().hp.text);
+                HP = maxHP;
             }
             else
             {

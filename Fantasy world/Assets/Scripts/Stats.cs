@@ -6,7 +6,7 @@ using TMPro;
 public class Stats : MonoBehaviour
 {
    public bool pressedTab = false;
-    public bool statsActive = false;
+    public bool statsActive = true;
     public GameObject stats;
     public TMP_Text uName;
     public TMP_Text level;
@@ -22,6 +22,7 @@ public class Stats : MonoBehaviour
     public TMP_Text intelligence;
     public TMP_Text charisma;
     public TMP_Text luck;
+  //  public PlayerMovement player;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class Stats : MonoBehaviour
         skillPoints.text = "10";
         hp.text = "0";
         dmg.text = "0";
+     //   player = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -43,26 +45,26 @@ public class Stats : MonoBehaviour
             
         }
         uName.text = $"Name: \"{GettingName.uName}\"";
-        if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
-        {
-            pressedTab = true;
-            if (statsActive == false)
-            {
-                stats.SetActive(true);
-                statsActive = true;
-            }
-            else if(statsActive)
-            {
-                stats.SetActive(false);
-                statsActive = false;
-            }
+        //if (Input.GetKeyDown(KeyCode.Tab) && pressedTab == false)
+        //{
+        //    pressedTab = true;
+        //    if (statsActive == false)
+        //    {
+        //        stats.SetActive(true);
+        //        statsActive = true;
+        //    }
+        //    else if(statsActive)
+        //    {
+        //        stats.SetActive(false);
+        //        statsActive = false;
+        //    }
             
             
-        }
-        if (Input.GetKeyUp(KeyCode.Tab))
-        {
-            pressedTab = false;
-        }
+        //}
+        //if (Input.GetKeyUp(KeyCode.Tab))
+        //{
+        //    pressedTab = false;
+        //}
 
     }
 
@@ -75,6 +77,8 @@ public class Stats : MonoBehaviour
         {
             hp.text = (int.Parse(hp.text) + 1).ToString();
             skillPoints.text = (int.Parse(skillPoints.text) - 1).ToString();
+            PlayerMovement.HP += 1;
+            PlayerMovement.maxHP += 1;
         }
     }
     public void MinusHP()
@@ -83,6 +87,8 @@ public class Stats : MonoBehaviour
         {
             hp.text = (int.Parse(hp.text) - 1).ToString();
             skillPoints.text = (int.Parse(skillPoints.text) + 1).ToString();
+            PlayerMovement.HP -= 1;
+            PlayerMovement.maxHP -= 1;
         }
     }
 
